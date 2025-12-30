@@ -1,0 +1,11 @@
+import nltk
+
+# 斷詞用
+nltk.download("punkt")
+nltk.download("punkt_tab")
+# 停用詞用
+nltk.download("stopwords")
+
+# lemmatization 用（WordNet）
+nltk.download("wordnet")
+nltk.download("omw-1.4")
