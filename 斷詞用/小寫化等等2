@@ -1,0 +1,19 @@
+text = df["text"].iloc[0]
+print("原文:", text)
+
+text_lower = str(text).lower()
+print("\n(1) 小寫化:", text_lower)
+
+tokens = word_tokenize(text_lower)
+print("\n(2) 斷詞 tokens:", tokens)
+
+filtered = [w for w in tokens if w.isalpha()]
+print("\n(3) 只留字母:", filtered)
+
+no_stop = [w for w in filtered if w not in stop_words]
+print("\n(4) 移除停用詞:", no_stop)
+
+lemm = [lemmatizer.lemmatize(w) for w in no_stop]
+print("\n(5) 詞形還原:", lemm)
+
+print("\n(6) 最終 clean_text:", " ".join(lemm))
