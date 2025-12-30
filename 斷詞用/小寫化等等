@@ -1,0 +1,23 @@
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+
+stop_words = set(stopwords.words("english"))
+lemmatizer = WordNetLemmatizer() #lemmatizer不同詞行統一：loved, loving → love
+
+def preprocess_text(text):
+    # 防呆：如果是 NaN 或不是字串
+    if pd.isna(text):
+        return ""
+
+    text = str(text).lower()  # 1) 小寫化
+    tokens = word_tokenize(text)  # 2) 斷詞
+
+    # 3) 移除非字母、停用詞 + 4) 詞形還原
+    tokens = [
+        lemmatizer.lemmatize(w)
+        for w in tokens
+        if w.isalpha() and w not in stop_words #w.isalpha()移除移除：數字（123）、標點符號（! ? .）
+        #w not in stop_words -> the, is, am, are, and, to, of, in, on, with 等等刪除不帶情緒資訊、只負責語法，不負責語意
+    ]
+    return " ".join(tokens)
